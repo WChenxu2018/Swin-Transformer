@@ -332,7 +332,7 @@ class PatchEmbed(nn.Module):
         # FIXME look at relaxing size constraints
         assert H == self.img_size[0] and W == self.img_size[1], \
             f"Input image size ({H}*{W}) doesn't match model ({self.img_size[0]}*{self.img_size[1]})."
-        x = self.proj(x).flatten(2).transpose(1, 2)  # B Ph*Pw C
+        x = self.proj(x).flatten(2).transpose(1, 2)  # B Ph*Pw C # 出来的是(N, 96, 224/4, 224/4)  # 把HW维展开，(N, 96, 56*56)  # 把通道维放到最后 (N, 56*56, 96)
         if self.norm is not None:
             x = self.norm(x)
         return x
